@@ -1,7 +1,7 @@
 
 package edu.whatcom.mywcc;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class ProfileActivity extends AppCompatActivity {
