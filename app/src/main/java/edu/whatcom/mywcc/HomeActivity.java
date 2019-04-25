@@ -5,16 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import edu.whatcom.mywcc.R;
 
-public class SecondActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private ImageButton StudentProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_home);
         StudentProfile = (ImageButton) findViewById(R.id.studentprofile);
         StudentProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,7 +24,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public void openProfile(){
-        Intent intent1 = new Intent(this, ProfilePage.class);
+        Intent intent1 = new Intent(this, ProfileActivity.class);
         startActivity(intent1);
     }
 
