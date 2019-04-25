@@ -1,4 +1,4 @@
-package com.example.mywccapp;
+package edu.whatcom.mywcc;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import edu.whatcom.mywcc.R;
 
 public class MainActivity extends AppCompatActivity {
 

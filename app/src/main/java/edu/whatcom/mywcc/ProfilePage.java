@@ -1,8 +1,9 @@
 
-package com.example.mywccapp;
+package edu.whatcom.mywcc;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import edu.whatcom.mywcc.R;
 
 public class ProfilePage extends AppCompatActivity {
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:visibility="visible"
     android:background="@color/velvetOrca"
-    tools:context=".MainActivity"
+    tools:context="edu.whatcom.mywcc.MainActivity"
     tools:visibility="visible">
 
     <EditText

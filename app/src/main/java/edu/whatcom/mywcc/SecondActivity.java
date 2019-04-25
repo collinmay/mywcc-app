@@ -1,10 +1,11 @@
-package com.example.mywccapp;
+package edu.whatcom.mywcc;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import edu.whatcom.mywcc.R;
 
 public class SecondActivity extends AppCompatActivity {
 
