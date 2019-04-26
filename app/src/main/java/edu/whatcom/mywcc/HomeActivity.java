@@ -1,26 +1,37 @@
 package edu.whatcom.mywcc;
 
 import android.content.Intent;
+import android.view.ViewGroup;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 
 public class HomeActivity extends AppCompatActivity {
-
-    private ImageButton StudentProfile;
+    private Backend backend = new StaticBackend();
+    private ImageButton profileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        StudentProfile = (ImageButton) findViewById(R.id.studentprofile);
-        StudentProfile.setOnClickListener(new View.OnClickListener() {
+        profileButton = (ImageButton) findViewById(R.id.studentprofile);
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openProfile();
             }
         });
+
+        StudentProfile profile = backend.getStudentProfile();
+
+        ListView canvasAssignmentListView = (ListView) findViewById(R.id.canvas_assignment_list);
+        canvasAssignmentListView.setAdapter(
+                new ArrayAdapter<>(
+                        this,
+                        R.layout.layout_canvas_assignment,
+                        R.id.canvas_assignment_text,
+                        profile.canvasAssignments));
     }
 
     public void openProfile(){
