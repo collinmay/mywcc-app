@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void verify(String userName, String userPassword){
         if(userName.equals("MisterPotato") && userPassword.equals("123456")){
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
             startActivity(intent);
         }else{
             countTimes++;
