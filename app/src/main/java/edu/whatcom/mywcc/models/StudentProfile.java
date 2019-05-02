@@ -1,4 +1,4 @@
-package edu.whatcom.mywcc;
+package edu.whatcom.mywcc.models;
 
 import java.util.ArrayList;
 import java.util.List;

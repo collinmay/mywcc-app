@@ -1,6 +1,8 @@
 package edu.whatcom.mywcc;
 
-import java.util.Calendar;
+import edu.whatcom.mywcc.models.CanvasAssignment;
+import edu.whatcom.mywcc.models.StudentProfile;
+
 import java.util.Date;
 
 public class StaticBackend implements Backend {

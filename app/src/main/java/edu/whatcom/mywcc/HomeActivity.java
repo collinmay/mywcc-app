@@ -1,11 +1,11 @@
 package edu.whatcom.mywcc;
 
 import android.content.Intent;
-import android.view.ViewGroup;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import edu.whatcom.mywcc.models.StudentProfile;
 
 public class HomeActivity extends AppCompatActivity {
     private Backend backend = new StaticBackend();
