@@ -1,7 +1,9 @@
-package edu.whatcom.mywcc;
+package edu.whatcom.mywcc.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentProfile {
     public int orcaCardFreePrints = 1480;
@@ -11,4 +13,5 @@ public class StudentProfile {
 
     public List<CanvasAssignment> canvasAssignments = new ArrayList<>();
     public List<Email> recentEmails = new ArrayList<>();
+    public Map<AcademicQuarter, List<Course>> quarterlyEnrollments = new HashMap<>();
 }
