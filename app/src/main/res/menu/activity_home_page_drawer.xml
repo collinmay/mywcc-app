@@ -12,6 +12,10 @@
             android:id="@+id/nav_WCC_map"
             android:icon="@drawable/campus_map"
             android:title="WCC Map" />
+        <item
+            android:id="@+id/nav_WCC_calendar"
+            android:icon="@drawable/calendar"
+            android:title="WCC Calendar"/>
 
     </group>
 

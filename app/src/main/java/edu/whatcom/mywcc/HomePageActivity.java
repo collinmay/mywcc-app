@@ -87,6 +87,9 @@ public class HomePageActivity extends AppCompatActivity
             Intent intent = new Intent(HomePageActivity.this,MapCollegePage.class);
 
             startActivity(intent);
+        }else if (id ==R.id.nav_WCC_calendar){
+            Intent intent = new Intent(HomePageActivity.this,CalendarPage.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
