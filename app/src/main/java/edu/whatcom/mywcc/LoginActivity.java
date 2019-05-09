@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void verify(String userName, String userPassword){
         if(userName.equals("MisterPotato") && userPassword.equals("123456")){
-            StudentProfile profile = backend.getStudentProfile();
             Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
 
             startActivity(intent);
