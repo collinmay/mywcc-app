@@ -14,7 +14,7 @@
             android:title="Student Profile" />
         <item
             android:id="@+id/nav_WCC_map"
-            android:icon="@drawable/campus_map"
+            android:icon="@drawable/map_icon"
             android:title="WCC Map" />
         <item
             android:id="@+id/nav_WCC_calendar"
