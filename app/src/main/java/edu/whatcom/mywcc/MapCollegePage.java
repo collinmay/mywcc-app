@@ -78,8 +78,11 @@ public class MapCollegePage extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if(id == R.id.nav_home_page){
+            Intent intent = new Intent(MapCollegePage.this, HomePageActivity.class);
 
-        if (id == R.id.nav_student_profile) {
+            startActivity(intent);
+        } else if (id == R.id.nav_student_profile) {
             Intent intent = new Intent(MapCollegePage.this,StudentProfilePage.class);
 
             startActivity(intent);
