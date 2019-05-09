@@ -16,9 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import edu.whatcom.mywcc.models.StudentProfile;
 import edu.whatcom.mywcc.models.Weekday;
 
 public class CurrentScheduleActivity extends AppCompatActivity {
+
+    private StudentProfile profile;
 
     /**
      * The {@link androidx.viewpager.widget.PagerAdapter} that will provide
@@ -39,6 +42,8 @@ public class CurrentScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_schedule);
+
+        profile = new StaticBackend().getStudentProfile();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,14 +92,19 @@ public class CurrentScheduleActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_WEEKDAY = "weekday";
+        private static final String ARG_PROFILE = "profile";
+
+        private StudentProfile profile;
 
         public WeekdayFragment() {
+
         }
 
-        public static WeekdayFragment newInstance(Weekday weekday) {
+        public static WeekdayFragment newInstance(Weekday weekday, StudentProfile profile) {
             WeekdayFragment fragment = new WeekdayFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_WEEKDAY, weekday.ordinal());
+            args.putParcelable(ARG_WEEKDAY, weekday);
+            args.putParcelable(ARG_PROFILE, profile);
             fragment.setArguments(args);
             return fragment;
         }
@@ -104,7 +114,8 @@ public class CurrentScheduleActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_current_schedule, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            Weekday weekday = Weekday.values()[getArguments().getInt(ARG_WEEKDAY)];
+            Weekday weekday = getArguments().getParcelable(ARG_WEEKDAY);
+            StudentProfile profile = getArguments().getParcelable(ARG_PROFILE);
             textView.setText(weekday.name());
             return rootView;
         }
@@ -122,7 +133,7 @@ public class CurrentScheduleActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return WeekdayFragment.newInstance(Weekday.values()[position]);
+            return WeekdayFragment.newInstance(Weekday.values()[position], profile);
         }
 
         @Override
