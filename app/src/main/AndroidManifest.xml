@@ -10,9 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CalendarPage"
+            android:label="@string/title_activity_calendar_page"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MapCollegePage"
+            android:label="@string/title_activity_map_college_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StudentProfilePage"
+            android:label="@string/title_activity_student_profile_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".HomePageActivity"
             android:label="@string/title_activity_home_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity">

@@ -22,13 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-public class HomePageActivity extends AppCompatActivity
+public class StudentProfilePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_student_profile_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,7 +54,7 @@ public class HomePageActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_page, menu);
+        getMenuInflater().inflate(R.menu.student_profile_page, menu);
         return true;
     }
 
@@ -80,17 +80,18 @@ public class HomePageActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_student_profile) {
-            Intent intent = new Intent(HomePageActivity.this,StudentProfilePage.class);
+            Intent intent = new Intent(StudentProfilePage.this,StudentProfilePage.class);
 
             startActivity(intent);
         } else if (id == R.id.nav_WCC_map) {
-            Intent intent = new Intent(HomePageActivity.this,MapCollegePage.class);
+            Intent intent = new Intent(StudentProfilePage.this,MapCollegePage.class);
 
             startActivity(intent);
         }else if (id ==R.id.nav_WCC_calendar){
-            Intent intent = new Intent(HomePageActivity.this,CalendarPage.class);
+            Intent intent = new Intent(StudentProfilePage.this,CalendarPage.class);
             startActivity(intent);
         }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
