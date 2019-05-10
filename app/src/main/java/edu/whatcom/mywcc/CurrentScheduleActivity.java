@@ -1,5 +1,10 @@
 package edu.whatcom.mywcc;
 
+import android.util.AttributeSet;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,13 +20,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
+import edu.whatcom.mywcc.models.AcademicQuarter;
+import edu.whatcom.mywcc.models.Course;
 import edu.whatcom.mywcc.models.StudentProfile;
 import edu.whatcom.mywcc.models.Weekday;
 
-public class CurrentScheduleActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+public class CurrentScheduleActivity extends AppCompatActivity {
     private StudentProfile profile;
+    private AcademicQuarter qtr;
 
     /**
      * The {@link androidx.viewpager.widget.PagerAdapter} that will provide
@@ -44,6 +54,7 @@ public class CurrentScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_current_schedule);
 
         profile = new StaticBackend().getStudentProfile();
+        qtr = profile.quarterlyEnrollments.keySet().iterator().next(); // ugh, just pick one
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,16 +94,10 @@ public class CurrentScheduleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class WeekdayFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_WEEKDAY = "weekday";
         private static final String ARG_PROFILE = "profile";
+        private static final String ARG_QUARTER = "quarter";
+        private static final String ARG_WEEKDAY = "weekday";
 
         private StudentProfile profile;
 
@@ -100,11 +105,27 @@ public class CurrentScheduleActivity extends AppCompatActivity {
 
         }
 
-        public static WeekdayFragment newInstance(Weekday weekday, StudentProfile profile) {
+        private class Entry implements Comparable<Entry> {
+            public Course course;
+            public Course.Schedule schedule;
+
+            public Entry(Course c, Course.Schedule s) {
+                course = c;
+                schedule = s;
+            }
+
+            @Override
+            public int compareTo(Entry o) {
+                return schedule.compareTo(o.schedule);
+            }
+        }
+
+        public static WeekdayFragment newInstance(StudentProfile profile, AcademicQuarter qtr, Weekday weekday) {
             WeekdayFragment fragment = new WeekdayFragment();
             Bundle args = new Bundle();
-            args.putParcelable(ARG_WEEKDAY, weekday);
             args.putParcelable(ARG_PROFILE, profile);
+            args.putParcelable(ARG_QUARTER, qtr);
+            args.putParcelable(ARG_WEEKDAY, weekday);
             fragment.setArguments(args);
             return fragment;
         }
@@ -113,11 +134,75 @@ public class CurrentScheduleActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_current_schedule, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            Weekday weekday = getArguments().getParcelable(ARG_WEEKDAY);
+
             StudentProfile profile = getArguments().getParcelable(ARG_PROFILE);
-            textView.setText(weekday.name());
+            AcademicQuarter qtr = getArguments().getParcelable(ARG_QUARTER);
+            Weekday weekday = getArguments().getParcelable(ARG_WEEKDAY);
+
+            RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.schedule_recycler);
+            RecyclerView.LayoutManager lm = new RecyclerLayoutManager();
+            recycler.setLayoutManager(lm);
+
+            List<Course> courses = profile.quarterlyEnrollments.get(qtr);
+            List<Entry> schedulesToday = new ArrayList<>();
+            for(Course c : courses) {
+                for(Course.Schedule s : c.schedule) {
+                    if(s.days.contains(weekday)) {
+                        schedulesToday.add(new Entry(c, s));
+                    }
+                }
+            }
+            Collections.sort(schedulesToday);
+            recycler.setAdapter(new RecyclerAdapter(schedulesToday));
+
             return rootView;
+        }
+
+        private class RecyclerAdapter extends RecyclerView.Adapter {
+            private List<Entry> schedulesToday;
+
+            public RecyclerAdapter(List<Entry> schedulesToday) {
+                this.schedulesToday = schedulesToday;
+            }
+
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.current_schedule_item, parent, false);
+                return new RecyclerViewHolder(v);
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                ((RecyclerViewHolder) holder).bind(schedulesToday.get(position));
+            }
+
+            @Override
+            public int getItemCount() {
+                return schedulesToday.size();
+            }
+        }
+
+        private class RecyclerViewHolder extends RecyclerView.ViewHolder {
+            private TextView textTitle;
+
+            public RecyclerViewHolder(View itemView) {
+                super(itemView);
+                textTitle = itemView.findViewById(R.id.sched_title);
+            }
+
+            public void bind(Entry e) {
+                textTitle.setText(e.course.title);
+            }
+        }
+
+        private class RecyclerLayoutManager extends RecyclerView.LayoutManager {
+            @Override
+            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+                return new RecyclerView.LayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                ));
+            }
         }
     }
 
@@ -133,7 +218,7 @@ public class CurrentScheduleActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return WeekdayFragment.newInstance(Weekday.values()[position], profile);
+            return WeekdayFragment.newInstance(profile, qtr, Weekday.values()[position]);
         }
 
         @Override

@@ -18,7 +18,7 @@ public class Course implements Parcelable {
     public Date startDate;
     public Date endDate;
 
-    public static class Schedule implements Parcelable {
+    public static class Schedule implements Parcelable, Comparable<Schedule> {
         public Set<Weekday> days;
         public Room room;
         public int startHour;
@@ -73,6 +73,11 @@ public class Course implements Parcelable {
             dest.writeInt(startMinute);
             dest.writeInt(endHour);
             dest.writeInt(endMinute);
+        }
+
+        @Override
+        public int compareTo(Schedule o) {
+            return this.startHour * 60 + this.startMinute - o.startHour * 60 - o.startMinute;
         }
     }
 
