@@ -20,6 +20,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_student_profile_page"
-        app:menu="@menu/activity_student_profile_page_drawer" />
+        app:menu="@menu/activity_student_profile_page_drawer" />z
 
 </androidx.drawerlayout.widget.DrawerLayout>
