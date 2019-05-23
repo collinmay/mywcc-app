@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void openProfile(){
-        Intent intent1 = new Intent(this, ProfileActivity.class);
+        Intent intent1 = new Intent(this, StudentProfilePage.class);
         startActivity(intent1);
     }
 
