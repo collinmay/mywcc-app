@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -16,7 +17,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
-
+import android.content.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -24,6 +25,7 @@ import android.view.Menu;
 
 public class MapCollegePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +68,6 @@ public class MapCollegePage extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -78,8 +77,11 @@ public class MapCollegePage extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if(id == R.id.nav_home_page){
+            Intent intent = new Intent(MapCollegePage.this, HomePageActivity.class);
 
-        if (id == R.id.nav_student_profile) {
+            startActivity(intent);
+        } else if (id == R.id.nav_student_profile) {
             Intent intent = new Intent(MapCollegePage.this,StudentProfilePage.class);
 
             startActivity(intent);

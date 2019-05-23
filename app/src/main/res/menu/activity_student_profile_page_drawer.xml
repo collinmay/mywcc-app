@@ -5,12 +5,16 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home_page"
+            android:icon="@drawable/studentid"
+            android:title="Home Page" />
+        <item
             android:id="@+id/nav_student_profile"
             android:icon="@drawable/studentid"
             android:title="Student Profile" />
         <item
             android:id="@+id/nav_WCC_map"
-            android:icon="@drawable/campus_map"
+            android:icon="@drawable/map_icon"
             android:title="WCC Map" />
         <item
             android:id="@+id/nav_WCC_calendar"

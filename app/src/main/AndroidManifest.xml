@@ -3,12 +3,12 @@
           package="edu.whatcom.mywcc">
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:icon="@drawable/orca"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/orcaicon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".CalendarPage"
             android:label="@string/title_activity_calendar_page"
@@ -25,7 +25,6 @@
             android:name=".HomePageActivity"
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".HomeActivity" />
         <activity
                 android:name=".CurrentScheduleActivity"
