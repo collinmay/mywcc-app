@@ -1,6 +1,7 @@
 package edu.whatcom.mywcc;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,10 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
+
+import edu.whatcom.mywcc.models.StudentProfile;
 
 public class StudentProfilePage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener{
+    TextView studentName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,11 @@ public class StudentProfilePage extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        StudentProfile profile = new StaticBackend().getStudentProfile();
+        studentName = (TextView) findViewById(R.id.student_Name);
+
+        studentName.setText("Name: " + profile.orcaStudentName);
     }
 
     @Override
@@ -95,6 +104,8 @@ public class StudentProfilePage extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
+
 }

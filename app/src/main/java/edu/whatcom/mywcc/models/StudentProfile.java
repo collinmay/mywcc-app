@@ -10,6 +10,7 @@ public class StudentProfile {
     public int orcaCardDiningDollars = 430;
     public int orcaCardBookstore = 1000000;
     public int orcaCardBonusBucks = 1337;
+    public String orcaStudentName = "Mister Potato";
 
     public List<CanvasAssignment> canvasAssignments = new ArrayList<>();
     public List<Email> recentEmails = new ArrayList<>();
