@@ -25,7 +25,7 @@ public class StaticBackend implements Backend {
                     .setTitle("DATA STRUCTURE/ALGORITHM")
                     .setItem(2230)
                     .setInstructor("PARSONS, R")
-                    .addSchedule("MWF", bkr106, 15, 30, 16, 60)
+                    .addSchedule("MWF", bkr106, 15, 30, 16, 50)
                     .addSchedule("TTh", bkr106, 15, 30, 17, 20)
                     .build(),
                 new Course.Builder(spring19)
@@ -36,6 +36,6 @@ public class StaticBackend implements Backend {
                     .addSchedule("TTh", cas123a, 11, 30, 13, 20)
                     .build()
                 ));
-        return new StudentProfile();
+        return profile;
     }
 }

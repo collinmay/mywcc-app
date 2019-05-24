@@ -1,9 +1,7 @@
 package edu.whatcom.mywcc;
 
-import android.util.AttributeSet;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -105,21 +103,6 @@ public class CurrentScheduleActivity extends AppCompatActivity {
 
         }
 
-        private class Entry implements Comparable<Entry> {
-            public Course course;
-            public Course.Schedule schedule;
-
-            public Entry(Course c, Course.Schedule s) {
-                course = c;
-                schedule = s;
-            }
-
-            @Override
-            public int compareTo(Entry o) {
-                return schedule.compareTo(o.schedule);
-            }
-        }
-
         public static WeekdayFragment newInstance(StudentProfile profile, AcademicQuarter qtr, Weekday weekday) {
             WeekdayFragment fragment = new WeekdayFragment();
             Bundle args = new Bundle();
@@ -139,70 +122,25 @@ public class CurrentScheduleActivity extends AppCompatActivity {
             AcademicQuarter qtr = getArguments().getParcelable(ARG_QUARTER);
             Weekday weekday = getArguments().getParcelable(ARG_WEEKDAY);
 
-            RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.schedule_recycler);
-            RecyclerView.LayoutManager lm = new RecyclerLayoutManager();
-            recycler.setLayoutManager(lm);
+            CurrentScheduleView v = (CurrentScheduleView) rootView.findViewById(R.id.current_schedule_view);
 
             List<Course> courses = profile.quarterlyEnrollments.get(qtr);
-            List<Entry> schedulesToday = new ArrayList<>();
+            List<CourseScheduleEntry> schedulesToday = new ArrayList<>();
+            int firstHour = 24;
+            int lastHour = 0;
             for(Course c : courses) {
                 for(Course.Schedule s : c.schedule) {
+                    if(s.startHour < firstHour) { firstHour = s.startHour; }
+                    if(s.endHour > lastHour) { lastHour = s.endHour; }
                     if(s.days.contains(weekday)) {
-                        schedulesToday.add(new Entry(c, s));
+                        schedulesToday.add(new CourseScheduleEntry(c, s));
                     }
                 }
             }
             Collections.sort(schedulesToday);
-            recycler.setAdapter(new RecyclerAdapter(schedulesToday));
+            v.setSchedules(schedulesToday, firstHour-1, lastHour+2);
 
             return rootView;
-        }
-
-        private class RecyclerAdapter extends RecyclerView.Adapter {
-            private List<Entry> schedulesToday;
-
-            public RecyclerAdapter(List<Entry> schedulesToday) {
-                this.schedulesToday = schedulesToday;
-            }
-
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.current_schedule_item, parent, false);
-                return new RecyclerViewHolder(v);
-            }
-
-            @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                ((RecyclerViewHolder) holder).bind(schedulesToday.get(position));
-            }
-
-            @Override
-            public int getItemCount() {
-                return schedulesToday.size();
-            }
-        }
-
-        private class RecyclerViewHolder extends RecyclerView.ViewHolder {
-            private TextView textTitle;
-
-            public RecyclerViewHolder(View itemView) {
-                super(itemView);
-                textTitle = itemView.findViewById(R.id.sched_title);
-            }
-
-            public void bind(Entry e) {
-                textTitle.setText(e.course.title);
-            }
-        }
-
-        private class RecyclerLayoutManager extends RecyclerView.LayoutManager {
-            @Override
-            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-                return new RecyclerView.LayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-                ));
-            }
         }
     }
 
@@ -226,4 +164,5 @@ public class CurrentScheduleActivity extends AppCompatActivity {
             return 5;
         }
     }
+
 }

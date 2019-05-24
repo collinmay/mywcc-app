@@ -8,6 +8,7 @@ public class Building {
     private String name;
 
     public Building(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 
