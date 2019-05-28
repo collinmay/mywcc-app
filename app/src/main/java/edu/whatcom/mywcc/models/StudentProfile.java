@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentProfile {
-    public int orcaCardFreePrints = 1480;
-    public int orcaCardDiningDollars = 430;
-    public int orcaCardBookstore = 1000000;
-    public int orcaCardBonusBucks = 1337;
+    public String orcaCardFreePrints = "$14.80";
+    public String orcaCardDiningDollars = "$5.50";
+    public String orcaCardBookstore = "$12.50";
+    public String orcaCardBonusBucks = "$20.00";
+    public String orcaCash = "$4.00";
     public String orcaStudentName = "Mister Potato";
 
     public List<CanvasAssignment> canvasAssignments = new ArrayList<>();
