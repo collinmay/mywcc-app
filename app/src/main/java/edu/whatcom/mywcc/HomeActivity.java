@@ -1,6 +1,7 @@
 package edu.whatcom.mywcc;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
