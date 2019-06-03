@@ -55,19 +55,19 @@ public class StudentProfilePage extends AppCompatActivity
         studentName.setText("Name: " + profile.orcaStudentName);
 
         freePrints = (TextView) findViewById(R.id.free_Prints);
-        freePrints.setText("Free Prints: " + profile.orcaCardFreePrints);
+        freePrints.setText("Free Prints: $" + profile.orcaCardFreePrints/100.0);
 
         dinningDollars = (TextView) findViewById(R.id.Dinning_dollars);
-        dinningDollars.setText("Dinning Dollars: " + profile.orcaCardDiningDollars);
+        dinningDollars.setText("Dinning Dollars: $" + profile.orcaCardDiningDollars/100.0);
 
         bookStore = (TextView)findViewById(R.id.bookstore);
-        bookStore.setText("Bookstore: " + profile.orcaCardBookstore);
+        bookStore.setText("Bookstore: $" + profile.orcaCardBookstore/100.0);
 
         orcaCash = (TextView) findViewById(R.id.Orca_cash);
-        orcaCash.setText("Orca Cash: " + profile.orcaCash);
+        orcaCash.setText("Orca Cash: $" + profile.orcaCash/100.0);
 
         bonusBucks = (TextView)findViewById(R.id.Bonus_bucks);
-        bonusBucks.setText("Bonus Bucks: " + profile.orcaCardBonusBucks);
+        bonusBucks.setText("Bonus Bucks: $" + profile.orcaCardBonusBucks/100.0);
 
     }
 
