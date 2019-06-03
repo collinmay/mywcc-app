@@ -8,4 +8,9 @@ public class Room {
         this.building = building;
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return building.getId() + " " + number;
+    }
 }

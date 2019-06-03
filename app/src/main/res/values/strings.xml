@@ -15,7 +15,19 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="current_schedule_title">Current Schedule</string>
+    <string name="title_monday">Monday</string>
+    <string name="title_tuesday">Tuesday</string>
+    <string name="title_wednesday">Wednesday</string>
+    <string name="title_thursday">Thursday</string>
+    <string name="title_friday">Friday</string>
+    <string name="title_friday_short">F</string>
+    <string name="title_thursday_short">Th</string>
+    <string name="title_wednesday_short">W</string>
+    <string name="title_tuesday_short">T</string>
+    <string name="title_monday_short">M</string>
     <string name="title_activity_student_profile_page">StudentProfilePage</string>
     <string name="title_activity_map_college_page">MapCollegePage</string>
     <string name="title_activity_calendar_page">CalendarPage</string>
+    <string name="title_activity_current_schedule">Current Schedule</string>
 </resources>

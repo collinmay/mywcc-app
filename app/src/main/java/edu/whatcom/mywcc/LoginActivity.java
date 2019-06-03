@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import edu.whatcom.mywcc.models.StudentProfile;
 
 public class LoginActivity extends AppCompatActivity {
-
     private EditText Name;
     private EditText Password;
     private TextView Info;

@@ -1,8 +1,11 @@
 package edu.whatcom.mywcc.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.*;
 
-public class Course {
+public class Course implements Parcelable {
     public AcademicQuarter quarter;
     public String courseId;
     public String title;
@@ -15,7 +18,7 @@ public class Course {
     public Date startDate;
     public Date endDate;
 
-    public static class Schedule {
+    public static class Schedule implements Parcelable, Comparable<Schedule> {
         public Set<Weekday> days;
         public Room room;
         public int startHour;
@@ -30,6 +33,51 @@ public class Course {
             this.startMinute = startMinute;
             this.endHour = endHour;
             this.endMinute = endMinute;
+        }
+
+        protected Schedule(Parcel in) {
+            List<Weekday> days = new ArrayList<>();
+            in.readTypedList(days, Weekday.CREATOR);
+
+            this.days = new TreeSet<>(days);
+            this.room = Building.getById(in.readString()).getRoom(in.readString());
+            startHour = in.readInt();
+            startMinute = in.readInt();
+            endHour = in.readInt();
+            endMinute = in.readInt();
+        }
+
+        public static final Creator<Schedule> CREATOR = new Creator<Schedule>() {
+            @Override
+            public Schedule createFromParcel(Parcel in) {
+                return new Schedule(in);
+            }
+
+            @Override
+            public Schedule[] newArray(int size) {
+                return new Schedule[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeTypedList(new ArrayList<>(days));
+            dest.writeString(room.building.getId());
+            dest.writeString(room.number);
+            dest.writeInt(startHour);
+            dest.writeInt(startMinute);
+            dest.writeInt(endHour);
+            dest.writeInt(endMinute);
+        }
+
+        @Override
+        public int compareTo(Schedule o) {
+            return this.startHour * 60 + this.startMinute - o.startHour * 60 - o.startMinute;
         }
     }
 
@@ -89,5 +137,63 @@ public class Course {
         public Course build() {
             return course;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(courseId);
+        dest.writeString(section);
+        dest.writeString(title);
+        dest.writeInt(item);
+        dest.writeFloat(units);
+        dest.writeString(instructor);
+        dest.writeLong(startDate.getTime());
+        dest.writeLong(endDate.getTime());
+        dest.writeTypedList(schedule);
+    }
+
+    private static class Creator implements Parcelable.Creator<Course> {
+        private AcademicQuarter qtr;
+
+        public Creator() {
+            this(null);
+        }
+
+        public Creator(AcademicQuarter qtr) {
+            this.qtr = qtr;
+        }
+
+        @Override
+        public Course createFromParcel(Parcel source) {
+            Course c = new Course.Builder(qtr)
+                        .setCourseId(source.readString(), source.readString())
+                        .setTitle(source.readString())
+                        .setItem(source.readInt())
+                        .setUnits(source.readFloat())
+                        .setInstructor(source.readString())
+                        .build();
+            c.startDate = new Date(source.readLong());
+            c.endDate = new Date(source.readLong());
+            c.schedule = new ArrayList<>();
+            source.readTypedList(c.schedule, Schedule.CREATOR);
+            return null;
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    }
+
+    public static final Parcelable.Creator<Course> CREATOR
+            = new Creator();
+
+    public static Parcelable.Creator<Course> createCreator(AcademicQuarter qtr) {
+        return new Creator(qtr);
     }
 }
