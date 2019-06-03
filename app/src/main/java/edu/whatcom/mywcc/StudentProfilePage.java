@@ -29,6 +29,12 @@ import edu.whatcom.mywcc.models.StudentProfile;
 public class StudentProfilePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
     TextView studentName;
+    TextView dinningDollars;
+    TextView bookStore;
+    TextView orcaCash;
+    TextView freePrints;
+    TextView bonusBucks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +52,23 @@ public class StudentProfilePage extends AppCompatActivity
 
         StudentProfile profile = new StaticBackend().getStudentProfile();
         studentName = (TextView) findViewById(R.id.student_Name);
-
         studentName.setText("Name: " + profile.orcaStudentName);
+
+        freePrints = (TextView) findViewById(R.id.free_Prints);
+        freePrints.setText("Free Prints: " + profile.orcaCardFreePrints);
+
+        dinningDollars = (TextView) findViewById(R.id.Dinning_dollars);
+        dinningDollars.setText("Dinning Dollars: " + profile.orcaCardDiningDollars);
+
+        bookStore = (TextView)findViewById(R.id.bookstore);
+        bookStore.setText("Bookstore: " + profile.orcaCardBookstore);
+
+        orcaCash = (TextView) findViewById(R.id.Orca_cash);
+        orcaCash.setText("Orca Cash: " + profile.orcaCash);
+
+        bonusBucks = (TextView)findViewById(R.id.Bonus_bucks);
+        bonusBucks.setText("Bonus Bucks: " + profile.orcaCardBonusBucks);
+
     }
 
     @Override

@@ -28,7 +28,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/mister_potato_pic" />
-
+            <TextView
+                android:id="@+id/blank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize = "25sp"/>
             <TextView
                 android:id="@+id/student_Name"
                 android:layout_width="match_parent"
@@ -36,6 +42,41 @@
                 android:text="Name: "
                 android:textColor="#000000"
                 android:textSize="25sp" />
+            <TextView
+                android:id="@+id/free_Prints"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Free Prints: "
+                android:textColor="#000000"
+                android:textSize = "25sp"/>
+            <TextView
+                android:id="@+id/Dinning_dollars"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dinning Dollars: "
+                android:textColor="#000000"
+                android:textSize = "25sp"/>
+            <TextView
+                android:id="@+id/bookstore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bookstore: "
+                android:textColor="#000000"
+                android:textSize = "25sp"/>
+            <TextView
+                android:id="@+id/Orca_cash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Orca Cash: "
+                android:textColor="#000000"
+                android:textSize = "25sp"/>
+            <TextView
+                android:id="@+id/Bonus_bucks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bonus bucks: "
+                android:textColor="#000000"
+                android:textSize = "25sp"/>
 
         </LinearLayout>
     </ScrollView>

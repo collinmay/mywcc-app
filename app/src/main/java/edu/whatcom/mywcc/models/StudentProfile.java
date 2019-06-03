@@ -13,6 +13,7 @@ public class StudentProfile implements Parcelable {
     public int orcaCardDiningDollars = 430;
     public int orcaCardBookstore = 1000000;
     public int orcaCardBonusBucks = 1337;
+    public int orcaCash = 400;
     public String orcaStudentName = "Mister Potato";
 
     public List<CanvasAssignment> canvasAssignments = new ArrayList<>();
@@ -30,6 +31,8 @@ public class StudentProfile implements Parcelable {
         dest.writeInt(orcaCardDiningDollars);
         dest.writeInt(orcaCardBookstore);
         dest.writeInt(orcaCardBonusBucks);
+        dest.writeInt(orcaCash);
+        dest.writeString(orcaStudentName);
 
         dest.writeTypedList(canvasAssignments);
         dest.writeTypedList(recentEmails);
@@ -50,6 +53,8 @@ public class StudentProfile implements Parcelable {
             p.orcaCardDiningDollars = source.readInt();
             p.orcaCardBookstore = source.readInt();
             p.orcaCardBonusBucks = source.readInt();
+            p.orcaCash = source.readInt();
+            p.orcaStudentName = source.readString();
 
             source.readTypedList(p.canvasAssignments, CanvasAssignment.CREATOR);
             source.readTypedList(p.recentEmails, Email.CREATOR);
