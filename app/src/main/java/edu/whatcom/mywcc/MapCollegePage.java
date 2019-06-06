@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.shape.ShapePath;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.os.PersistableBundle;
@@ -26,6 +27,7 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.annotation.CircleManager;
 import com.mapbox.mapboxsdk.plugins.annotation.CircleOptions;
+import com.mapbox.mapboxsdk.plugins.annotation.Line;
 import com.mapbox.mapboxsdk.plugins.annotation.LineManager;
 import com.mapbox.mapboxsdk.plugins.annotation.LineOptions;
 import com.mapbox.mapboxsdk.utils.ColorUtils;
@@ -41,6 +43,7 @@ import edu.whatcom.mywcc.models.path.PathNode;
 import android.view.Menu;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MapCollegePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,6 +51,8 @@ public class MapCollegePage extends AppCompatActivity
     private CampusMap mapModel = CampusMap.createWCCCampusMap();
     private MapView mapView;
     private NavigationDialogFragment dialog;
+    private LineManager edgeManager;
+    private Line pathLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,7 @@ public class MapCollegePage extends AppCompatActivity
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(m -> m.setStyle(Style.SATELLITE_STREETS, style -> {
-            LineManager edgeManager = new LineManager(mapView, m, style);
+            edgeManager = new LineManager(mapView, m, style);
             CircleManager nodeManager = new CircleManager(mapView, m, style);
 
             for(PathNode n : mapModel.nodes) {
@@ -96,6 +101,15 @@ public class MapCollegePage extends AppCompatActivity
 
     private void findPath(Building from, Building to) {
         dialog.dismiss();
+        if(pathLine != null) {
+            edgeManager.delete(pathLine);
+        }
+        List<LatLng> path = mapModel.path(mapModel.buildings.get(from), mapModel.buildings.get(to));
+
+        LineOptions pathOptions = new LineOptions();
+        pathOptions.withLatLngs(path);
+        pathOptions.withLineColor(ColorUtils.colorToRgbaString(0xff0000ff));
+        pathLine = edgeManager.create(pathOptions);
     }
 
     @Override

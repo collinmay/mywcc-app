@@ -1,8 +1,11 @@
 package edu.whatcom.mywcc.models.path;
 
+import com.mapbox.mapboxsdk.geometry.LatLng;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import edu.whatcom.mywcc.models.Building;
@@ -88,5 +91,54 @@ public class CampusMap {
         PathNode node = new PathNode(lati, longi);
         nodes.add(node);
         return node;
+    }
+
+    public List<LatLng> path(PathNode from, PathNode to) {
+        for(PathNode n : nodes) {
+            n.shortestLink = null;
+            n.shortestPath = Double.POSITIVE_INFINITY;
+            n.known = false;
+        }
+
+        from.shortestPath = 0;
+        from.shortestLink = null;
+
+        PathNode n;
+        while((n = shortestUnknownNode()) != null) {
+            n.known = true;
+            if(n == to) {
+                List<LatLng> p = new ArrayList<>();
+                PathNode l = n;
+                while(l != null) {
+                    p.add(l);
+                    l = l.shortestLink;
+                }
+                return p;
+            }
+            for(PathNode a : n.adjacencies) {
+                double l = n.shortestPath + n.distanceTo(a);
+                if(l < a.shortestPath) {
+                    if(a.known) {
+                        throw new RuntimeException("somehow we found a shorter path? are negative lengths afoot?");
+                    }
+                    a.shortestPath = l;
+                    a.shortestLink = n;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private PathNode shortestUnknownNode() {
+        PathNode cur = null;
+        double length = Double.POSITIVE_INFINITY;
+        for(PathNode n : nodes) {
+            if(!n.known && n.shortestPath < length) {
+                cur = n;
+                length = cur.shortestPath;
+            }
+        }
+        return cur;
     }
 }
