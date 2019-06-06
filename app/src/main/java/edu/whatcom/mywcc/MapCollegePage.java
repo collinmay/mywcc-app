@@ -1,6 +1,7 @@
 package edu.whatcom.mywcc;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,22 +18,32 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.plugins.annotation.CircleManager;
+import com.mapbox.mapboxsdk.plugins.annotation.CircleOptions;
+import com.mapbox.mapboxsdk.plugins.annotation.LineManager;
+import com.mapbox.mapboxsdk.plugins.annotation.LineOptions;
+import com.mapbox.mapboxsdk.utils.ColorUtils;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import edu.whatcom.mywcc.models.path.CampusMap;
+import edu.whatcom.mywcc.models.path.PathNode;
 
 import android.view.Menu;
+
+import java.util.Arrays;
 
 public class MapCollegePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    private CampusMap mapModel = CampusMap.createWCCCampusMap();
     private MapView mapView;
 
     @Override
@@ -53,17 +64,24 @@ public class MapCollegePage extends AppCompatActivity
         Mapbox.getInstance(getApplicationContext(), getString(R.string.mapbox_access_token));
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull MapboxMap m) {
-                m.setStyle(Style.SATELLITE_STREETS, new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
+        mapView.getMapAsync(m -> m.setStyle(Style.SATELLITE_STREETS, style -> {
+            LineManager edgeManager = new LineManager(mapView, m, style);
+            CircleManager nodeManager = new CircleManager(mapView, m, style);
 
-                    }
-                });
+            for(PathNode n : mapModel.nodes) {
+                CircleOptions opt = new CircleOptions()
+                        .withLatLng(n)
+                        .withCircleColor(ColorUtils.colorToRgbaString(Color.BLUE))
+                        .withCircleRadius(5f);
+                nodeManager.create(opt);
+
+                for(PathNode a : n.outgoing) {
+                    LineOptions lopt = new LineOptions()
+                            .withLatLngs(Arrays.asList(n, a));
+                    edgeManager.create(lopt);
+                }
             }
-        });
+        }));
     }
 
     @Override
