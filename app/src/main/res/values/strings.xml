@@ -32,4 +32,10 @@
     <string name="title_activity_current_schedule">Current Schedule</string>
 
     <string name="mapbox_access_token">pk.eyJ1IjoiY29sbGlubWF5IiwiYSI6ImNqbGQxdnFvaDAzN3Yza3F6dDI5OGE5NDYifQ.rw75aDgpE3k_juOv0Z0UaA</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_from">From</string>
+    <string name="nav_to">To</string>
+    <string name="navigate">ROUTE</string>
 </resources>

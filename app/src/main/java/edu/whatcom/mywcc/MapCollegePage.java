@@ -1,5 +1,6 @@
 package edu.whatcom.mywcc;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import edu.whatcom.mywcc.models.Building;
 import edu.whatcom.mywcc.models.path.CampusMap;
 import edu.whatcom.mywcc.models.path.PathNode;
 
@@ -45,6 +47,7 @@ public class MapCollegePage extends AppCompatActivity
 
     private CampusMap mapModel = CampusMap.createWCCCampusMap();
     private MapView mapView;
+    private NavigationDialogFragment dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,17 @@ public class MapCollegePage extends AppCompatActivity
                 }
             }
         }));
+
+        FloatingActionButton fab = findViewById(R.id.nav_fab);
+        fab.setOnClickListener((view) -> {
+            dialog = new NavigationDialogFragment(this::findPath, mapModel);
+            dialog.show(getSupportFragmentManager(), "navigation");
+
+        });
+    }
+
+    private void findPath(Building from, Building to) {
+        dialog.dismiss();
     }
 
     @Override
