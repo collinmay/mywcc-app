@@ -159,7 +159,7 @@ public class MapCollegePage extends AppCompatActivity
 
             startActivity(intent);
         }else if (id ==R.id.nav_WCC_calendar){
-            Intent intent = new Intent(MapCollegePage.this,CalendarPage.class);
+            Intent intent = new Intent(MapCollegePage.this,CurrentScheduleActivity.class);
             startActivity(intent);
         }
 

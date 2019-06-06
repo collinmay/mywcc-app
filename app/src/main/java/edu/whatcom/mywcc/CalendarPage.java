@@ -88,7 +88,7 @@ public class CalendarPage extends AppCompatActivity
 
             startActivity(intent);
         }else if (id ==R.id.nav_WCC_calendar){
-            Intent intent = new Intent(CalendarPage.this,CalendarPage.class);
+            Intent intent = new Intent(CalendarPage.this,CurrentScheduleActivity.class);
             startActivity(intent);
         }
 

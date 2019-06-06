@@ -158,7 +158,7 @@ public class HomePageActivity extends AppCompatActivity
 
             startActivity(intent);
         }else if (id ==R.id.nav_WCC_calendar){
-            Intent intent = new Intent(HomePageActivity.this,CalendarPage.class);
+            Intent intent = new Intent(HomePageActivity.this,CurrentScheduleActivity.class);
             startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
