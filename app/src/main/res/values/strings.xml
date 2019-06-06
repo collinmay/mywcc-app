@@ -30,4 +30,6 @@
     <string name="title_activity_map_college_page">MapCollegePage</string>
     <string name="title_activity_calendar_page">CalendarPage</string>
     <string name="title_activity_current_schedule">Current Schedule</string>
+
+    <string name="mapbox_access_token">pk.eyJ1IjoiY29sbGlubWF5IiwiYSI6ImNqbGQxdnFvaDAzN3Yza3F6dDI5OGE5NDYifQ.rw75aDgpE3k_juOv0Z0UaA</string>
 </resources>

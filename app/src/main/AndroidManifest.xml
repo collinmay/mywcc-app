@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/orcaicon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="edu.whatcom.mywcc.Application">
         <activity
             android:name=".CalendarPage"
             android:label="@string/title_activity_calendar_page"
